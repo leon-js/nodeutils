@@ -1,18 +1,22 @@
-const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
+const shell = require('shelljs')
+const inquirer = require('inquirer')
 
-module.exports = () => {
-  // shell.cd('~/Desktop/company')
-  // console.log(shell.ls())
-  // fs.readdir('User/Desktop', (e) => {
-  //   console.log(e)
-  // })
-  console.log(process.cwd(), 123)
-  console.log(`这里是commit`)
-  // console.log(shell.ls('-d', '*/'))
-  shell.ls('-d', '*/').forEach((i: string) => {
-    console.log(i)
-    // shell.cd(i)
+interface Props {
+  args: Array<number>
+}
+
+module.exports = ({args}: Props) => {
+  const promptList = [{
+    type: 'list',
+    message: '选择文件夹',
+    name: 'file',
+    choices: shell.ls('-d', '*/')
+  }]
+
+  inquirer.prompt(promptList).then((res: {file: string}) => {
+    shell.cd(res['file'])
+    console.log(shell.ls())
   })
 }

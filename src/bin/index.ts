@@ -9,10 +9,10 @@ const actionKey = args[0]
 
 switch (actionKey) {
   case 'cmt':
-    commit()
+    commit({args})
     break
   default: 
-    console.error('请输入需要执行的方法名')
+    console.error('请输入需要执行（正确）的方法名')
     break
 }
 

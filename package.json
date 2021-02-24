@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "llh": "node ./dist/bin"
+    "llh": "node ./dist/bin",
+    "tsc": "tsc --w"
   },
   "repository": {
     "type": "git",
