@@ -1,7 +1,6 @@
-const fs = require('fs')
-const path = require('path')
-const shell = require('shelljs')
-const inquirer = require('inquirer')
+import shell from 'shelljs'
+import inquirer from 'inquirer'
+import LoggerUtils from '@utils/logger'
 
 /**
  * 入参
@@ -13,10 +12,10 @@ interface Props {
 
 const regex: RegExp = /^\/[A-Za-z0-9]/
 
-module.exports = ({args}: Props) => {
+module.exports = async ({args}: Props) => {
   if (regex.test(args[0])) {
     if (shell.cd(args[0]).code !== 0) {
-      shell.echo('Info: 地址输入错误，将指向当前目录')
+      LoggerUtils.error('地址输入错误，指向当前目录')
     }
   }
   
@@ -25,10 +24,15 @@ module.exports = ({args}: Props) => {
     name: 'file',
     message: '请选择文件夹',
     choices: shell.ls('-d', '*/')
+  }, {
+    type: 'input',
+    name: 'msg',
+    message: '请输入提交内容'
   }]
 
-  inquirer.prompt(promptList).then((res: {file: string}) => {
-    const { file } = res
+  await inquirer.prompt(promptList).then((res: {file: string, msg: string}) => {
+    const { file, msg } = res
     shell.cd(file)
+    LoggerUtils.succ(JSON.stringify(res))
   })
 }
