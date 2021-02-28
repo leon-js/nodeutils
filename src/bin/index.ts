@@ -1,19 +1,22 @@
-#!/usr/bin/env node
+import commit from '../commit'
+import LoggerUtils from '@utils/logger'
 
-// 上述描述是告诉机器，需要用node来执行这个文件
+export default () => {
+  const args: string[] = process.argv.slice(2)
+  const actionKey: string = args[0]
+  
+  switch (actionKey) {
+    case 'cmt':
+      commit({args: args.slice(1)})
+      break
+    default: 
+      LoggerUtils.warn(`
+        请输入需要执行（正确）的方法名
 
-const commit = require('../commit')
+        cmt: git提交
 
-const args = process.argv.slice(2)
-const actionKey = args[0]
-
-switch (actionKey) {
-  case 'cmt':
-    commit({args: args.slice(1)})
-    break
-  default: 
-    console.error('请输入需要执行（正确）的方法名')
-    break
+        其余功能正在持续开发中...
+      `)
+      break
+  }
 }
-
-export = {}

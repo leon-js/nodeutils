@@ -9,6 +9,13 @@ export default {
   error
 }
 
+const typeMap: { [type: string]: string } = {
+  info: 'blue',
+  succ: 'green',
+  warn: 'yellow',
+  error: 'red'
+}
+
 function info(...message: string[]) {
   log('info', ...message)
 }
@@ -26,13 +33,6 @@ function error(...message: string[]) {
 }
 
 function log(type: LogType = 'info', ...message: string[]): void {
-  const typeMap: { [type: string]: string } = {
-    info: 'blue',
-    succ: 'green',
-    warn: 'yello',
-    error: 'red'
-  }
-
   console.log(
     //@ts-ignore
     Chalk[typeMap[type]](

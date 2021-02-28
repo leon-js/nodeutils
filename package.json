@@ -4,11 +4,11 @@
   "description": "",
   "main": "src/index.ts",
   "bin": {
-    "llh": "dist/bin/index.js"
+    "llh": "dist/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "llh": "node ./dist/bin",
+    "llh": "node ./dist",
     "tsc": "tsc --w",
     "tt": "node replace"
   },
@@ -30,6 +30,10 @@
   "devDependencies": {
     "@types/inquirer": "^7.3.1",
     "@types/node": "^14.14.31",
-    "@types/shelljs": "^0.8.8"
+    "@types/shelljs": "^0.8.8",
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+    "@utils": "dist/utils"
   }
 }
