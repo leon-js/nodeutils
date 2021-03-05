@@ -14,13 +14,17 @@ interface Props {
 }
 
 function shellExec({shellFn, errorMsg, options = {}}: Props) {
-  ShellJs.exec(shellFn, options)
+  // ShellJs.exec(shellFn, options)
 
-  const error = ShellJs.error()
+  setTimeout(() => {
+    console.log(shellFn)
+  }, 1000)
 
-  if (error) {
-    ExitUtils.exitError({errorMsg: `错误信息：${errorMsg || error}`})
-  }
+  // const error = ShellJs.error()
+
+  // if (error) {
+  //   ExitUtils.exitError({errorMsg: `错误信息：${errorMsg || error}`})
+  // }
 }
 
 export default {
