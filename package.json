@@ -34,6 +34,7 @@
     "module-alias": "^2.2.2"
   },
   "_moduleAliases": {
-    "@utils": "dist/utils"
+    "@utils": "dist/utils",
+    "@const": "dist/const"
   }
 }

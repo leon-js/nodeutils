@@ -1,6 +1,6 @@
 import shell from 'shelljs'
 import inquirer from 'inquirer'
-import LoggerUtils from '@utils/logger'
+import { LoggerUtils } from '@utils'
 
 /**
  * 入参

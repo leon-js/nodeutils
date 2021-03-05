@@ -1,7 +1,5 @@
-const fs = require('fs')
+import LoggerUtils from './logger'
 
-function findDirPath() {
-  
+export {
+  LoggerUtils
 }
-
-export {}
