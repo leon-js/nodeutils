@@ -1,4 +1,13 @@
-# nodeutils
+# node-small-tools
 
-## git提交
-npm run llh cmt
+## Installation
+
+```bash
+$ npm install -g node-small-tools
+```
+
+## Usage:
+
+```bash
+$ nst
+```

@@ -1,27 +1,25 @@
 {
-  "name": "nodeutils",
+  "name": "node-small-tools",
   "version": "1.0.0",
-  "description": "",
+  "description": "node-small-tools",
   "main": "src/index.ts",
   "bin": {
-    "llh": "dist/index.js"
+    "nst": "dist/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "llh": "node ./dist",
     "tsc": "tsc --w",
-    "tt": "node replace"
+    "start": "node ./dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lianglihao/nodeutils.git"
+    "url": "git+https://github.com/leon-js/nodeutils.git"
   },
-  "author": "LiangLihao",
+  "author": "Leon <lianglihao.js98@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lianglihao/nodeutils/issues"
+    "url": "https://github.com/leon-js/nodeutils/issues"
   },
-  "homepage": "https://github.com/lianglihao/nodeutils#readme",
+  "homepage": "https://github.com/leon-js/nodeutils#readme",
   "dependencies": {
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",

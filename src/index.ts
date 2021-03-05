@@ -25,7 +25,7 @@ import { LoggerUtils } from '@utils'
 
 LoggerUtils.succ([
   '启动成功...',
-  '欢迎使用llh小工具，更多功能正在开发中',
+  '欢迎使用Leon的node小工具，更多功能正在开发中',
   `作者联系方式：${contact.email}`
 ])
 
