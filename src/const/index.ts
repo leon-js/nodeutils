@@ -1,10 +1,34 @@
+/**
+ * 联系方式
+ * @param email 作者邮箱
+ */
+interface Contact {
+  email: string
+}
+
+const contact: Contact = {
+  email: 'lianglihao.js98@gmail.com'
+}
+
 const promptListAction: Prompt[] = [{
   type: 'list',
   name: 'actionName',
   message: '请选择要执行的方法',
-  choices: ['cmt：提交代码（add commit msg push）']
+  choices: [
+    {
+      key: 'cmt',
+      value: 'cmt',
+      name: '提交代码（add -> commit msg -> push）',
+    }, 
+    {
+      key: 'exit',
+      value: 'exit',
+      name: '退出（exit）',
+    }
+  ]
 }]
 
 export {
+  contact,
   promptListAction
 }

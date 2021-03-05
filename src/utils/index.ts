@@ -1,5 +1,9 @@
+import ExitUtils from './exit'
 import LoggerUtils from './logger'
+import ErrorTrapUtils from './errorTrap'
 
 export {
-  LoggerUtils
+  ExitUtils,
+  LoggerUtils,
+  ErrorTrapUtils
 }

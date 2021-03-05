@@ -20,12 +20,13 @@
 require('module-alias/register')
 
 import bin from './bin'
+import { contact } from '@const'
 import { LoggerUtils } from '@utils'
 
-LoggerUtils.succ(`
-  欢迎使用llh小工具，更多功能正在开发中！
-
-  联系方式：lianglihao.js98@gmail.com
-`)
+LoggerUtils.succ([
+  '启动成功...',
+  '欢迎使用llh小工具，更多功能正在开发中',
+  `作者联系方式：${contact.email}`
+])
 
 bin()

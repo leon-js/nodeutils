@@ -1,5 +1,6 @@
 import Chalk from 'chalk'
 
+type Message = string | string[]
 type LogType = 'info' | 'warn' | 'succ' | 'error'
 
 export default {
@@ -9,34 +10,44 @@ export default {
   error
 }
 
-const typeMap: { [type: string]: string } = {
+const typeMap: StringMap = {
   info: 'blue',
   succ: 'green',
   warn: 'yellow',
   error: 'red'
 }
 
-function info(...message: string[]) {
-  log('info', ...message)
+function info(message: Message) {
+  log('info', message)
 }
 
-function warn(...message: string[]) {
-  log('warn', ...message)
+function warn(message: Message) {
+  log('warn', message)
 }
 
-function succ(...message: string[]) {
-  log('succ', ...message)
+function succ(message: Message) {
+  log('succ', message)
 }
 
-function error(...message: string[]) {
-  log('error', ...message)
+function error(message: Message) {
+  log('error', message)
 }
 
-function log(type: LogType = 'info', ...message: string[]): void {
+function log(type: LogType = 'info', message: Message): void {
+  let msg: string = ''
+
+  if (Array.isArray(message)) {
+    message.forEach((str: string) => {
+      msg = msg + '  ' + str + '\n'
+    })
+  } else {
+    msg = '  ' + message
+  }
+  
   console.log(
     //@ts-ignore
     Chalk[typeMap[type]](
-      `[${type.toUpperCase()}${type.length === 5 ? '' : ' '}]:${message}`
+      `[${type.toUpperCase()}${type.length === 5 ? '' : ' '}]:\n${msg}`
     )
   )
 }

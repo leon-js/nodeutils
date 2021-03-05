@@ -1,49 +1,27 @@
-import shell from 'shelljs'
 import inquirer from 'inquirer'
-import { LoggerUtils } from '@utils'
+import { LoggerUtils, ErrorTrapUtils } from '@utils'
 
-/**
- * 入参
- * @param args 进程被启动时传入的命令行参数（已截取前两位）
- */
-interface Props {
-  args: Array<string>
-}
-
-const regex: RegExp = /^\/[A-Za-z0-9]/
-
-export default async ({args}: Props) => {
-
+export default async () => {
   const promptList: Prompt[] = [{
     type: 'input',
     name: 'msg',
     message: '请输入提交内容'
   }]
 
-  if (regex.test(args[0])) {
-    if (shell.cd(args[0]).code !== 0) {
-      LoggerUtils.error('地址输入错误，指向当前目录')
-    } else {
-      promptList.unshift({
-        type: 'list',
-        name: 'file',
-        message: '请选择文件夹',
-        choices: shell.ls('-d', '*/')
-      })
-    }
-  }
+  await inquirer.prompt(promptList).then((r: {msg: string}): void => {
+    const { msg } = r
 
-  await inquirer.prompt(promptList).then((res: {file: string, msg: string}) => {
-    const { file, msg } = res
+    LoggerUtils.succ(`${JSON.stringify(r)}\n`)
+
+    const stepAry: string[] = ['git add .', `git commit -m '${msg}'`, 'git push']
     
-    if (file) {
-      shell.cd(file)
-    }
-
-    LoggerUtils.succ(JSON.stringify(res))
-
-    shell.exec('git add .')
-    shell.exec(`git commit -m '${msg}'`)
-    shell.exec('git push')
+    // silent 为 true，shelljs不再输出错误信息
+    stepAry.forEach(i => {
+      ErrorTrapUtils.shellExec({shellFn: i, options: {silent: true}})
+    })
   })
+}
+
+function start() {
+
 }
