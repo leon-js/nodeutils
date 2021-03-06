@@ -17,37 +17,56 @@ const typeMap: StringMap = {
   error: 'red'
 }
 
-function info(message: Message) {
-  log('info', message)
+/**
+ * 打印普通信息
+ */
+function info(message: Message, usePrefix = true) {
+  log('info', message, usePrefix)
 }
 
-function warn(message: Message) {
-  log('warn', message)
+/**
+ * 打印警告信息
+ */
+function warn(message: Message, usePrefix = true) {
+  log('warn', message, usePrefix)
 }
 
-function succ(message: Message) {
-  log('succ', message)
+/**
+ * 打印成功信息
+ */
+function succ(message: Message, usePrefix = true) {
+  log('succ', message, usePrefix)
 }
 
-function error(message: Message) {
-  log('error', message)
+/**
+ * 打印异常信息
+ */
+function error(message: Message, usePrefix = true) {
+  log('error', message, usePrefix)
 }
 
-function log(type: LogType = 'info', message: Message): void {
-  let msg: string = ''
+/**
+ * 打印信息
+ * @param type 类型
+ * @param message 消息（若是数组，则换行显示）
+ * @param usePrefix 是否使用前缀
+ */
+function log(type: LogType = 'info', message: Message, usePrefix: boolean): void {
+  let msg: Message = ''
+  let prefixContent = usePrefix ? `[${type.toUpperCase()}${type.length === 5 ? '' : ' '}]:` : ''
 
   if (Array.isArray(message)) {
     message.forEach((str: string) => {
       msg = msg + '  ' + str + '\n'
     })
   } else {
-    msg = '  ' + message
+    msg = message
   }
-  
+
   console.log(
     //@ts-ignore
-    Chalk[typeMap[type]](
-      `[${type.toUpperCase()}${type.length === 5 ? '' : ' '}]:\n${msg}`
+    Chalk[typeMap[type] || 'info'](
+      `${prefixContent}${typeof message === 'string' ? '  ' : '\n'}${msg}`
     )
   )
 }

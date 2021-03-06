@@ -5,12 +5,19 @@ import { ExitUtils, LoggerUtils } from '@utils'
 
 const args: string[] = process.argv.slice(2)
 
+/**
+ * 启动
+ */
 export default () => {
   const actionName: string = args[0]
   
   action({actionName})
 }
 
+/**
+ * 执行方法
+ * @param actionName 方法名
+ */
 function action({actionName}: {actionName: string}) {
   switch (actionName) {
     case 'cmt':
@@ -25,10 +32,17 @@ function action({actionName}: {actionName: string}) {
   }
 }
 
+/**
+ * 正常退出
+ */
 function Exit() {
   ExitUtils.exit()
 }
 
+/**
+ * 方法名错误时调用
+ * @param actionName 方法名
+ */
 async function Default({actionName}: {actionName: string}) {
   if (actionName) {
     LoggerUtils.warn(`当前输入的方法 ${actionName} 不存在\n`)

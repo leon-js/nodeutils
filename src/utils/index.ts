@@ -1,9 +1,11 @@
 import ExitUtils from './exit'
+import ShellUtils from './shell'
 import LoggerUtils from './logger'
-import ErrorTrapUtils from './errorTrap'
+import ProgressUtils from './progress'
 
 export {
   ExitUtils,
+  ShellUtils,
   LoggerUtils,
-  ErrorTrapUtils
+  ProgressUtils
 }

@@ -1,6 +1,9 @@
 import inquirer from 'inquirer'
-import { LoggerUtils, ErrorTrapUtils } from '@utils'
+import { LoggerUtils, ShellUtils, ProgressUtils } from '@utils'
 
+/**
+ * 提交代码
+ */
 export default async () => {
   const promptList: Prompt[] = [{
     type: 'input',
@@ -10,18 +13,10 @@ export default async () => {
 
   await inquirer.prompt(promptList).then((r: {msg: string}): void => {
     const { msg } = r
-
-    LoggerUtils.succ(`${JSON.stringify(r)}\n`)
-
     const stepAry: string[] = ['git add .', `git commit -m '${msg}'`, 'git push']
-    
-    // silent 为 true，shelljs不再输出错误信息
-    stepAry.forEach(i => {
-      ErrorTrapUtils.shellExec({shellFn: i, options: {silent: true}})
-    })
+
+    LoggerUtils.succ(`${JSON.stringify(r)}`)
+
+    ProgressUtils.start(stepAry.map(i => () => ShellUtils.exec({shellFn: i, options: {silent: true}})))
   })
-}
-
-function start() {
-
 }
