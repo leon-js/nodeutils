@@ -18,8 +18,13 @@ const promptListAction: Prompt[] = [{
     {
       key: 'cmt',
       value: 'cmt',
-      name: '提交代码（add -> commit msg -> push）',
-    }, 
+      name: '提交代码（add -> commit -> push）',
+    },
+    {
+      key: 'chck',
+      value: 'chck',
+      name: '切换分之（checkout）',
+    },
     {
       key: 'exit',
       value: 'exit',

@@ -4,6 +4,10 @@ type StringMap = {
   [key in string | number]: Str
 }
 
+type AnyMap = {
+  [key in string | number]: any
+}
+
 /**
  * 控制台交互配置项
  * @param type 类型
