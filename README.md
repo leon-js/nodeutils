@@ -11,3 +11,17 @@ $ npm install -g node-small-tools
 ```bash
 $ nst
 ```
+
+快捷使用方式
+
+```bash
+$ nst cmt | nst commit
+
+git提交
+```
+
+```bash
+$ nst chck | nst checkout
+
+git分支选择
+```
