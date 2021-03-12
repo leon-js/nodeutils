@@ -1,4 +1,4 @@
-import Commit from '../commit'
+import Git from '@git'
 import Inquirer from 'inquirer'
 import { promptListAction } from '@const'
 import { ExitUtils, LoggerUtils } from '@utils'
@@ -21,7 +21,12 @@ export default () => {
 function action({actionName}: {actionName: string}) {
   switch (actionName) {
     case 'cmt':
-      Commit()
+    case 'commit':
+      Git.cmt()
+      break
+    case 'chck':
+    case 'checkout':
+      Git.chck()
       break
     case 'exit':
       Exit()

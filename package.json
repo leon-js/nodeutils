@@ -2,13 +2,14 @@
   "name": "node-small-tools",
   "version": "1.0.1",
   "description": "node-small-tools",
-  "main": "src/index.ts",
+  "main": "src/utils/index.ts",
   "bin": {
     "nst": "dist/index.js"
   },
   "scripts": {
     "tsc": "tsc --w",
-    "start": "node ./dist"
+    "start": "node ./dist",
+    "build": "rm -rf ./dist && tsc"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "typescript": "^4.2.3"
   },
   "_moduleAliases": {
+    "@git": "dist/git",
     "@utils": "dist/utils",
     "@const": "dist/const"
   }

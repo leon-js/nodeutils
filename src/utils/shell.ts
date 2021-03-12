@@ -9,6 +9,7 @@ import ProgressUtils from './progress'
  * @param options ShellJs.exec options配置项
  */
 interface Props {
+  cb?: Function
   shellFn: string
   errorMsg?: string
   options?: ShellJs.ExecOptions | {}
@@ -16,22 +17,38 @@ interface Props {
 
 /**
  * 执行脚本
+ * @param cb 执行成功的回调
  * @param shellFn 脚本内容
  * @param errorMsg 错误信息
  * @param options shell配置项（silent为true，不再输出错误信息）
  */
-const exec = async ({shellFn, errorMsg, options = {}}: Props) => {
-  await ProgressUtils.load(() => {
-    return new Promise((resolve) => {
-      ShellJs.exec(shellFn, options, (code, stdout, stderr) => {
-        if (code) {
-          ExitUtils.exitError({errorMsg: `错误信息：${errorMsg || stderr}`})
-        } else {
-          resolve(1)
-        }
+const exec = async ({shellFn, errorMsg, options = {}, cb}: Props) => {
+  return new Promise((resolve) => {
+    ProgressUtils.load(() => {
+      return new Promise((resolve) => {
+        ShellJs.exec(shellFn, options, (code, stdout, stderr) => {
+          if (code) {
+            ExitUtils.exitError({errorMsg: `错误信息：${errorMsg || stderr}`})
+          } else {
+            resolve(stdout)
+          }
+        })
       })
+    }, shellFn).then((r: any) => {
+      resolve(r)
     })
-  }, shellFn)
+  })
+  // await ProgressUtils.load(() => {
+  //   return new Promise((resolve) => {
+  //     ShellJs.exec(shellFn, options, (code, stdout, stderr) => {
+  //       if (code) {
+  //         ExitUtils.exitError({errorMsg: `错误信息：${errorMsg || stderr}`})
+  //       } else {
+  //         resolve(1)
+  //       }
+  //     })
+  //   })
+  // }, shellFn)
 }
 
 /**
