@@ -1,23 +1,60 @@
-// import inquirer from 'inquirer'
-// import { LoggerUtils, ShellUtils, ProgressUtils } from '@utils'
+import inquirer from 'inquirer'
+import { 
+  ExitUtils,
+  ShellUtils,
+  LoggerUtils,
+  ProgressUtils
+} from '@utils'
 
 /**
  * 切换分支
  */
 export default async () => {
-  console.log('切换分支')
-  // const promptList: Prompt[] = [{
-  //   type: 'input',
-  //   name: 'msg',
-  //   message: '请输入提交内容'
-  // }]
+  const promptList: Prompt[] = [{
+    type: 'list',
+    name: 'type',
+    message: '请选择分支位置',
+    choices: [
+      {
+        key: 'local',
+        value: 'local',
+        name: '本地',
+      },
+      {
+        key: 'online',
+        value: 'online',
+        name: '远程',
+      }
+    ]
+  }]
+  const { type }: {type: string} = await inquirer.prompt(promptList)
+  const stepAry: string[] = ['git fetch', `git branch${type === 'local' ? '' : ' -r'}`]
 
-  // await inquirer.prompt(promptList).then((r: {msg: string}): void => {
-  //   const { msg } = r
-  //   const stepAry: string[] = ['git add .', `git commit -m '${msg}'`, 'git push']
+  LoggerUtils.succ(`${JSON.stringify({type})}`)
 
-  //   LoggerUtils.succ(`${JSON.stringify(r)}`)
+  let branchs: string = ''
 
-  //   ProgressUtils.start(stepAry.map(i => () => ShellUtils.exec({shellFn: i, options: {silent: true}})))
-  // })
+  await ProgressUtils.start(stepAry.map((i, index) => () => ShellUtils.exec({shellFn: i, options: {silent: true}}).then(r => {
+    if (index && typeof r === 'string') {
+      branchs = r
+    }
+  })))
+
+  if (!branchs.length) {
+    ExitUtils.exitError({errorMsg: `错误信息：拉取分支返回数据有误, 没有获取到分支信息`})
+  }
+
+  const promptListBranch: Prompt[] = [{
+    type: 'list',
+    name: 'branch',
+    message: '请选择需要切换的分支',
+    choices: branchs.split('\n').filter((i: string) => {
+      return !i.includes('->') && i.trim().length
+    })
+  }]
+  const { branch }: {branch: string} = await inquirer.prompt(promptListBranch)
+
+  ProgressUtils.start([
+    () => ShellUtils.exec({shellFn: `git checkout ${branch.replace(/origin\//, '')}`, options: {silent: true}})
+  ])
 }
