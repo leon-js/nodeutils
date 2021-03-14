@@ -26,6 +26,11 @@ const promptListAction: Prompt[] = [{
       name: '切换分之（checkout）',
     },
     {
+      key: 'ui',
+      value: 'ui',
+      name: '可视化（ui）',
+    },
+    {
       key: 'exit',
       value: 'exit',
       name: '退出（exit）',

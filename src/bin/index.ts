@@ -28,6 +28,9 @@ function action({actionName}: {actionName: string}) {
     case 'checkout':
       Git.chck()
       break
+    case 'ui':
+      console.log('开启ui界面')
+      break
     case 'exit':
       Exit()
       break
