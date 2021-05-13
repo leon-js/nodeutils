@@ -4,25 +4,24 @@ import ProgressUtils from './progress'
 
 /**
  * 执行脚本配置项
- * @param shellFn 脚本
- * @param errorMsg 错误提示
- * @param options ShellJs.exec options配置项
+ * @param cb 执行成功的回调
+ * @param shellFn 脚本内容
+ * @param errorMsg 错误信息
+ * @param estimate 估计所需的时间
+ * @param options shell配置项（silent为true，不再输出错误信息）
  */
 interface Props {
   cb?: Function
   shellFn: string
+  estimate?: number
   errorMsg?: string
   options?: ShellJs.ExecOptions | {}
 }
 
 /**
  * 执行脚本
- * @param cb 执行成功的回调
- * @param shellFn 脚本内容
- * @param errorMsg 错误信息
- * @param options shell配置项（silent为true，不再输出错误信息）
  */
-const exec = async ({shellFn, errorMsg, options = {}, cb}: Props) => {
+const exec = async ({shellFn, errorMsg, options = {}, cb, estimate = 1000}: Props) => {
   return new Promise((resolve) => {
     ProgressUtils.load(() => {
       return new Promise((resolve) => {
@@ -34,7 +33,7 @@ const exec = async ({shellFn, errorMsg, options = {}, cb}: Props) => {
           }
         })
       })
-    }, shellFn).then((r: any) => {
+    }, shellFn, estimate).then((r: any) => {
       resolve(r)
     })
   })
